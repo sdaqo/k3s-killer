@@ -193,7 +193,7 @@ cron_help () {
 # Check if the k3s server is running, if yes exit.
 # Comment this out if you do not want this (for example if you
 # are using this as a general cron job script)
-systemctl is-active k3s && exit 1
+systemctl is-active --quiet k3s && exit 1
 
 
 # Find the correct container to talk to, to find it you can use 'k3s ctr' while k3s is running
