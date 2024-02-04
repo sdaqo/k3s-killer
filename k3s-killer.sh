@@ -80,6 +80,8 @@ start_stop_containerd () {
     systemctl is-failed --quiet containerd_inplace && systemctl reset-failed --quiet containerd_inplace
     systemctl stop containerd_inplace
   elif [[ "$1" == "start" ]]; then
+    systemctl is-active --quiet k3s && echo "K3S is already running, will not start an extra containerd instance!" && return
+
     CD_BIN="$APP_POOL/k3s/data/current/bin/containerd"
     CD_STATE="/run/k3s/containerd"
     CD_ROOT="$APP_POOL/k3s/agent/containerd"
@@ -118,8 +120,6 @@ run_command () {
   check_root
   check_patches
 
-  systemctl is-active --quiet k3s && echo "K3S is already running, there is no need to use this!" && exit 1
-
   start_stop_containerd "start"
 
   CTR_BIN="$APP_POOL/k3s/data/current/bin/ctr"
@@ -148,8 +148,6 @@ run_command () {
 run_ctr () {
   check_root
   check_patches
-
-  systemctl is-active --quiet k3s && echo "K3S is already running, there is no need to use this!" && exit 1
 
   start_stop_containerd "start"
   $APP_POOL/k3s/data/current/bin/ctr $@
@@ -247,11 +245,11 @@ It is highly recommended to look into this script first by yourself to get a hol
 what exactly it is doing.
 
 Usage: k3s-killer.sh [kill|restart|cron|install|uninstall]
-  kill: Kill the k3s server and start a containerd service as replacement - this will make apps disappear from the GUI
-  restart: Start k3s server after killing it and stop the containerd_inplace service.
-  run: Run a command in a container while k3s is down. Use the 'cron' subcommand for more info on it.
-  cron: Help for running cronjobs while k3s is down.
-  ctr: Run the ctr programm while the k3s server is down.
+  kill: Kill the k3s server. This will make apps disappear from the GUI
+  restart: Start k3s server after killing it.
+  run: Run a command in a container while k3s is down (or active). Use the 'cron' subcommand for more info on it.
+  cron: Help for running cronjobs while k3s is down (or active).
+  ctr: Run the ctr programm while the k3s server is down (or active).
   install: Install patches for the k3s systemd service. This is needed for this to work. It will also backup the unpatched files.
   uninstall: Revert the patches for the k3s systemd service.
   "
