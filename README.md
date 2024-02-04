@@ -12,6 +12,7 @@ Refer to this thread to know why this exists: https://www.truenas.com/community/
 **Infos:**
   - This is tested on `TrueNAS-SCALE-23.10.1` all pre-cobia versions will not work.
   - You will have to reinstall after a system update.
+  - When doing `./k3s-kill.sh restart` apps may or may not be re-deployed.
 
 **Uninstall:** `./k3s-kill.sh uninstall`
 ## What it can do
