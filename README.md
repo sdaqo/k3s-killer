@@ -1,7 +1,7 @@
 # k3s-killer
 A little script to reduce CPU usage in truenas scale systems with kubernetes running.
 
-Refer to this thread to know why this exsists: https://www.truenas.com/community/threads/k3s-server-uses-10-cpu-for-no-reason.91326/
+Refer to this thread to know why this exists: https://www.truenas.com/community/threads/k3s-server-uses-10-cpu-for-no-reason.91326/
 
 ## Install & Usage
 1. Git clone this repo
