@@ -230,6 +230,7 @@ $script
   " | less
   continue_prompt "Do you want to write the template Script to a file?"
   echo "$script" > cron_example.sh
+  chmod +x cron_example.sh
 }
 
 print_help () {
