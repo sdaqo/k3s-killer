@@ -125,16 +125,15 @@ run_command () {
   CTR_BIN="$APP_POOL/k3s/data/current/bin/ctr"
   ADDRESS="/run/k3s/containerd/containerd.sock"
   NS="k8s.io"
-
-  COMMAND="$1"
-  CONTAINER_REGEX="$2"
-  EXEC_ID="$3"
-  EXEC_USER="$4"
+  CONTAINER_REGEX="$1"
+  EXEC_ID="$2"
+  EXEC_USER="$3"
+  COMMAND="${@:4}"
 
   CONTAINER=""
 
-  for c in $($CTR_BIN -a "$ADDRESS" -n "$NS" containers ls | grep $CONTAINER_REGEX | awk '{ print $1 }'); do
-      /root/bin/ctr -a "$ADDRESS" -n "$NS" task ls | grep -q "$c" && CONTAINER="$c" && break
+  for c in $($CTR_BIN -a "$ADDRESS" -n "$NS" containers ls | grep "$CONTAINER_REGEX" | awk '{ print $1 }'); do
+      $CTR_BIN -a "$ADDRESS" -n "$NS" task ls | grep -q "$c" && CONTAINER="$c" && break
   done
 
   if [ -n "$3" ]; then
@@ -203,17 +202,17 @@ systemctl is-active k3s && exit 1
 # of the application should suffice!
 CONTAINER_REGEX="nextcloud"
 
-# Now run your cron tasks, the first argument here is the command the second the 
-# container regex, the third is the exec id (just use any arbitrary number, 
+# Now run your cron tasks, the first argument here is the 
+# container regex, the second is the exec id (just use any arbitrary number, 
 # just keep in mind that if running two command ideally you should use two diffrent exec ids)
-# and the fourth is the user to run the command as.
+# the fourth is the user to run the command as and the last one is the command to run.
 #
 # In this case we run the nextcloud cron job and the preview generator with exec id 3 and 4
 # respectivly and as user with id 33 (www-data), the user may be specified with the name
 # or the id, it should not matter (normally).
 
-/path/to/k3s-killer.sh run "php -f /var/www/html/cron.php" "\$CONTAINER_REGEX" 3 33
-/path/to/k3s-killer.sh run "php -f /var/www/html/occ preview:pre-generate" "\$CONTAINER_REGEX" 4 33
+/path/to/k3s-killer.sh run "\$CONTAINER_REGEX" 3 33 "php -f /var/www/html/cron.php" 
+/path/to/k3s-killer.sh run "\$CONTAINER_REGEX" 4 33 "php -f /var/www/html/occ preview:pre-generate"
 
 # Add your own commands
 EOF
