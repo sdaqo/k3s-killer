@@ -98,6 +98,7 @@ start_stop_containerd () {
         $CD_BIN \
         -c $CD_CONFIG --state $CD_STATE \
         -a $CD_STATE/containerd.sock --root $CD_ROOT
+      sleep 1
     fi
   fi
     
