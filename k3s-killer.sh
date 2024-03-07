@@ -175,6 +175,7 @@ install_stuff () {
   continue_prompt "Continue?"
   patch_file "$K3S_KILL_PATCH" "$K3S_KILL"
   patch_file "$K3S_SERVICE_PATCH" "$K3S_SERVICE"
+  systemctl daemon-reload
 }
 
 uninstall_stuff() {
@@ -183,6 +184,7 @@ uninstall_stuff() {
   echo "Reverting patches..."
   patch -R "$K3S_KILL" <<< "$K3S_KILL_PATCH"
   patch -R "$K3S_SERVICE" <<< "$K3S_SERVICE_PATCH"
+  systemctl daemon-reload
 }
 
 cron_help () {
