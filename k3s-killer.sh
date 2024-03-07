@@ -176,6 +176,9 @@ install_stuff () {
   patch_file "$K3S_KILL_PATCH" "$K3S_KILL"
   patch_file "$K3S_SERVICE_PATCH" "$K3S_SERVICE"
   systemctl daemon-reload
+  echo "Successfully installed k3s-killer."
+  continue_prompt "You will now have to restart the k3s service, this may or may not re-deploy your apps, do you want to do that? Alternatively you can also restart your system."
+  systemctl restart k3s
 }
 
 uninstall_stuff() {
