@@ -52,13 +52,13 @@ patch_file () {
   echo 
   echo "Testing Patch:"
   echo "$1"
-  patch --forward --dry-run "$2" <<< "$1"
+  patch --read-only=fail --forward --dry-run "$2" <<< "$1"
   echo
 
   if [ $? -eq 0 ]; then
     echo "Test successful, the patch can be applied!"
     continue_prompt "Continue?"
-    patch --no-backup-if-mismatch --forward "$2" <<< "$1"
+    patch --read-only=fail --no-backup-if-mismatch --forward "$2" <<< "$1"
     echo "Patch applied!"
   else
     echo "Patch can not be applied! Maybe you already patched the file once? If so try `k3s-killer.sh uninstall` else contact the developer!" && exit 0
@@ -66,11 +66,11 @@ patch_file () {
 }
 
 check_patches () {
-  if ! patch -s -R -f --dry-run  "$K3S_KILL" <<< "$K3S_KILL_PATCH"; then
+  if ! patch --read-only=ignore -s -R -f --dry-run  "$K3S_KILL" <<< "$K3S_KILL_PATCH"; then
     echo "Patches not applied run the 'install' subcommand first!" && exit 0
   fi
 
-  if ! patch -s -R -f --dry-run  "$K3S_SERVICE" <<< "$K3S_SERVICE_PATCH"; then
+  if ! patch --read-only=ignore -s -R -f --dry-run  "$K3S_SERVICE" <<< "$K3S_SERVICE_PATCH"; then
     echo "Patches not applied run the 'install' subcommand first!" && exit 0
   fi
 }
