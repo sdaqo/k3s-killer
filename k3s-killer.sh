@@ -101,8 +101,11 @@ start_stop_containerd () {
     fi
     
     # Check if containerd is up already
+    CTR_BIN="$APP_POOL/k3s/data/current/bin/ctr"
+    ADDRESS="/run/k3s/containerd/containerd.sock"
+    NS="k8s.io"
     for i in {1..20}; do
-      if nc -w 1 -U /run/k3s/containerd/containerd.sock < /dev/null; then
+      if $CTR_BIN -a "$ADDRESS" -n "$NS" containers ls > /dev/null; then
         break
       else
         sleep 1
