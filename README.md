@@ -5,13 +5,13 @@ Refer to this thread to know why this exists: https://www.truenas.com/community/
 
 ## Install & Usage
 
-### Install for cobia versions (>= TrueNAS-SCALE-23) 
+### Install for cobia versions (TrueNAS-SCALE-23.x.x) 
 1. Git clone this repo
 3. Run: `./k3s-kill.sh install`
 4. (Optional) Run: `./k3s-kill.sh cron` to set up your cron jobs (e.g. for Nextclolud)
 5. Run: `./k3s-kill.sh kill` to kill the k3s server.
 
-### Install for dragonfish versions (>= TrueNAS-SCALE-24)
+### Install for dragonfish versions (TrueNAS-SCALE-24.x.x)
 1. Git clone this repo
 2. Run: `sudo zfs list -r boot-pool/ROOT` and copy the name that ends in `/usr` and is preceded by the system version you are running.
    
