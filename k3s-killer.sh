@@ -98,8 +98,16 @@ start_stop_containerd () {
         $CD_BIN \
         -c $CD_CONFIG --state $CD_STATE \
         -a $CD_STATE/containerd.sock --root $CD_ROOT
-      sleep 1
     fi
+    
+    # Check if containerd is up already
+    for i in {1..20}; do
+      if nc -w 1 -U /run/k3s/containerd/containerd.sock < /dev/null; then
+        break
+      else
+        sleep 1
+      fi
+    done
   fi
     
 }
