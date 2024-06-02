@@ -1,4 +1,4 @@
-> ### Anouncment: This script will not be needed anymore in the next scale version, yay! We are getting bare metal docker!!! https://forums.truenas.com/t/the-future-of-electric-eel-and-apps/5409 
+> ### Announcment: This script will not be needed anymore in the next scale version, yay! We are getting bare metal docker!!! https://forums.truenas.com/t/the-future-of-electric-eel-and-apps/5409 
 
 # k3s-killer
 A little script to reduce CPU usage in truenas scale systems with kubernetes running.
