@@ -9,9 +9,9 @@ Refer to this thread to know why this exists: https://www.truenas.com/community/
 
 ### Install for cobia versions (TrueNAS-SCALE-23.x.x) 
 1. Git clone this repo
-3. Run: `./k3s-kill.sh install`
-4. (Optional) Run: `./k3s-kill.sh cron` to set up your cron jobs (e.g. for Nextclolud)
-5. Run: `./k3s-kill.sh kill` to kill the k3s server.
+3. Run: `./k3s-killer.sh install`
+4. (Optional) Run: `./k3s-killer.sh cron` to set up your cron jobs (e.g. for Nextclolud)
+5. Run: `./k3s-killer.sh kill` to kill the k3s server.
 
 ### Install for dragonfish versions (TrueNAS-SCALE-24.x.x)
 1. Git clone this repo
@@ -45,22 +45,22 @@ For example (we take the value from above):
 ```
 $ sudo zfs set readonly=off boot-pool/ROOT/24.04.0/usr
 ```
-4. Run: `./k3s-kill.sh install`
+4. Run: `./k3s-killer.sh install`
 5. Again, run: `sudo zfs set readonly=on your-value-here` but now with `readonly=on`.
 
 For example (we take the value from above):
 ```
 $ sudo zfs set readonly=on boot-pool/ROOT/24.04.0/usr
 ```
-6. (Optional) Run: `./k3s-kill.sh cron` to set up your cron jobs (e.g. for Nextclolud)
-7. Run: `./k3s-kill.sh kill` to kill the k3s server.
+6. (Optional) Run: `./k3s-killer.sh cron` to set up your cron jobs (e.g. for Nextclolud)
+7. Run: `./k3s-killer.sh kill` to kill the k3s server.
 
 **Infos:**
   - This is tested on `TrueNAS-SCALE-23.10.1` and `TrueNAS-SCALE-24.04.0` all pre-cobia versions will not work.
   - You will have to reinstall after a system update.
-  - When doing `./k3s-kill.sh restart` apps may or may not be re-deployed.
+  - When doing `./k3s-killer.sh restart` apps may or may not be re-deployed.
 
-**Uninstall:** `./k3s-kill.sh uninstall`
+**Uninstall:** `./k3s-killer.sh uninstall`
 ## What it can do
 `./k3s-killer.sh help`
 
